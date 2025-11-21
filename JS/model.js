@@ -3,8 +3,8 @@ export class sinhVien{
         this.maSV = _maSV;
         this.tenSV =  _tenSV;
         //để đảm bảo điểm là số tránh cộng thành chuỗi.
-        this.diemToan = Number(_diemToan);
-        this.diemVan = Number(_diemVan);
+        this.diemToan = parseFloat(_diemToan);
+        this.diemVan = parseFloat(_diemVan);
     }
 
     tinhDiemTB() {

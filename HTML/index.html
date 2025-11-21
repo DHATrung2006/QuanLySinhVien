@@ -4,10 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sinh viên</title>
+    <link rel="stylesheet" href="../CS/style.css">
 </head>
 <body>
-    <h3>Check console để xem kết quả</h3>
-
-    <script type="module" src="../JS/model.js"></script>
+    <div class="container">
+        <h1>Quản Lý Sinh Viên</h1>
+    
+        <form id="form-sinh-vien">
+            <h2>Thêm Sinh Viên</h2>
+            <div class="form-group">
+                <label for="maSV">Mã Sinh Viên:</label>
+                <input type="text" id="maSV" required>
+            </div>
+            <div class="form-group">
+                <label for="tenSV">Tên Sinh Viên:</label>
+                <input type="text" id="tenSV" required>
+            </div>
+            <div class="form-group">
+                <label for="diemToan">Điểm Toán:</label>
+                <input type="number" id="diemToan" step="0.01" min="0" max="10" required>
+            </div>
+            <div class="form-group">
+                <label for="diemVan">Điểm Văn:</label>
+                <input type="number" id="diemVan" step="0.01" min="0" max="10" required>
+            </div>
+            <button type="submit" id="btn-them">Thêm Sinh Viên</button>
+        </form>
+    
+        <script type="module" src="../JS/model.js"></script>
+    </div>
 </body>
 </html>
