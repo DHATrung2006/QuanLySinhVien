@@ -1,37 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý sinh viên</title>
-    <link rel="stylesheet" href="../CS/style.css">
+    <title>QLSV Hiện Đại (JS Pure)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Quản Lý Sinh Viên</h1>
-    
-        <form id="form-sinh-vien">
-            <h2>Thêm Sinh Viên</h2>
-            <div class="form-group">
-                <label for="maSV">Mã Sinh Viên:</label>
-                <input type="text" id="maSV" required>
+    <div class="container my-5">
+        <h2>Ứng Dụng Quản Lý Sinh Viên</h2>
+
+        <form id="formQLSV" class="mb-4">
+            <div class="form-row">
+                <div class="col"><input type="text" id="maSV" class="form-control" placeholder="Mã SV" required></div>
+                <div class="col"><input type="text" id="tenSV" class="form-control" placeholder="Tên SV" required></div>
+                <div class="col"><input type="number" id="diemToan" class="form-control" placeholder="Điểm Toán"
+                        required></div>
+                <div class="col"><input type="number" id="diemVan" class="form-control" placeholder="Điểm Văn" required>
+                </div>
+                <div class="col-auto"><button type="submit" class="btn btn-primary">Thêm Sinh Viên</button></div>
             </div>
-            <div class="form-group">
-                <label for="tenSV">Tên Sinh Viên:</label>
-                <input type="text" id="tenSV" required>
-            </div>
-            <div class="form-group">
-                <label for="diemToan">Điểm Toán:</label>
-                <input type="number" id="diemToan" min="0" max="10" required>
-            </div>
-            <div class="form-group">
-                <label for="diemVan">Điểm Văn:</label>
-                <input type="number" id="diemVan" min="0" max="10" required>
-            </div>
-            <button type="submit" id="btn-them">Thêm Sinh Viên</button>
         </form>
-    
-        <script type="module" src="../JS/main.js"></script>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Mã SV</th>
+                    <th>Tên SV</th>
+                    <th>Điểm Toán</th>
+                    <th>Điểm Văn</th>
+                    <th>Điểm TB</th>
+                    <th>Xếp Loại</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
     </div>
+
+    <script type="module" src="main.js"></script>
 </body>
+
 </html>
