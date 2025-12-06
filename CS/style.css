@@ -43,7 +43,6 @@ input {
 /* Style cho nút chính */
 #btn-them {
     background-color: #007bff;
-    /* Thay đổi màu nút chính */
     color: white;
     padding: 10px 15px;
     border: none;
@@ -57,7 +56,7 @@ input {
     background-color: #0056b3;
 }
 
-/* Yêu cầu: Style khi nút bị vô hiệu hóa (Đang Loading) */
+/*Style khi nút bị vô hiệu hóa (Đang Loading) */
 #btn-them:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
@@ -113,3 +112,32 @@ input {
 .btn-danger:hover {
     background-color: #bd2130;
 }
+
+/* ... (Code cũ) ... */
+
+/* Style cho nút chính (Đã cập nhật để dùng selector chung hơn) */
+#formQLSV button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#formQLSV button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Ngày 16: Style khi nút bị vô hiệu hóa (Đang Loading) */
+#formQLSV button[type="submit"]:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.8;
+    /* Thêm hiệu ứng đơn giản để báo hiệu đang chờ */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+}
+
+/* ... (Code cũ) ... */

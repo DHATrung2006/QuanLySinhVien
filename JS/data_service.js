@@ -1,33 +1,58 @@
-// Sử dụng Closure để quản lý ID tự động tăng (Ngày 12)
-const createIdGenerator = () => {
-    let currentId = 0;
+// Closure - Quản lý ID tự động tăng
+const createIdGenerator = (initialId = 0) => {
+    let currentId = initialId;
     return () => {
         currentId += 1;
         return 'SV' + currentId.toString().padStart(3, '0'); // Ví dụ: SV001, SV002
     };
 };
-const getNextId = createIdGenerator();
+// Khởi tạo ban đầu. Sẽ được xử lý khởi tạo lại trong main.js
+let getNextId = createIdGenerator();
 
+// Khóa Local Storage & Hàm lấy dữ liệu
+const LOCAL_STORAGE_KEY = 'danhSachSV';
+
+const luuVaoLocalStorage = (danhSach) => {
+    // Chỉ lưu các thuộc tính (dữ liệu thô)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(danhSach));
+};
+
+export const layTuLocalStorage = () => {
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+};
+
+// Hàm cập nhật ID generator sau khi load data (sử dụng được trong main.js)
+export const setNextIdGenerator = (initialId) => {
+    getNextId = createIdGenerator(initialId);
+};
+
+
+// Định nghĩa Class DanhSachSV
 export class DanhSachSV {
     constructor() {
-        this.danhSach = [];
+        // Danh sách sẽ được gán dữ liệu load từ main.js
+        this.danhSach = []; 
     }
 
-    // Hàm giả lập bất đồng bộ (Async/Await Cơ bản - Ngày 13-14)
+    // Promises & Async/Await - Hàm giả lập bất đồng bộ
     async _simulateAsync(operation) {
         return new Promise((resolve, reject) => {
-            // Giả lập bất đồng bộ, không có delay 1.5s
+            // Yêu cầu: Độ trễ 1.5 giây
             setTimeout(() => {
                 try {
                     const result = operation();
+                    // Lưu vào Local Storage sau khi thao tác thành công
+                    luuVaoLocalStorage(this.danhSach);
                     resolve(result);
                 } catch (error) {
                     reject(error);
                 }
-            }, 0); 
+            }, 1500); // 1.5 giây delay
         });
     }
 
+    // themSV() trả về Promise
     themSV(sinhVienMoi) {
         return this._simulateAsync(() => {
             //Gán ID tự động tăng từ Closure
@@ -39,34 +64,33 @@ export class DanhSachSV {
         });
     }
 
-    // Xóa SV bằng .filter()
+    // xoaSV() trả về Promise và dùng .filter()
     xoaSV(maSV) {
         return this._simulateAsync(() => {
             const oldLength = this.danhSach.length;
             
-            //Sử dụng .filter() để tạo Array mới (Ngày 7-8 & 10-11)
+            // Sử dụng .filter() để tạo Array mới (Immutable Update)
             this.danhSach = this.danhSach.filter(sv => sv.maSV !== maSV);
             
             if (this.danhSach.length === oldLength) {
-                // Giả lập lỗi để luyện tập try...catch
+                // Xử lý lỗi cho try...catch
                 throw new Error(`Xóa thất bại: Không tìm thấy sinh viên có mã ${maSV}.`);
             }
         });
     }
 
-    //Cập nhật SV bằng Spread Operator
+    //  capNhatSV() trả về Promise và dùng Spread Operator
     capNhatSV(maSV, svCapNhat) {
         return this._simulateAsync(() => {
             const index = this.danhSach.findIndex(sv => sv.maSV === maSV);
 
             if (index !== -1) {
-                //Tạo bản sao của Array và Object (Ngày 9 & 10-11)
-                const newDanhSach = [...this.danhSach]; // Sao chép mảng
+                // Tạo bản sao của Array và Object (Immutable Update)
+                const newDanhSach = [...this.danhSach]; 
                 
-                // Sao chép và cập nhật đối tượng sinh viên
                 newDanhSach[index] = { 
-                    ...this.danhSach[index], 
-                    ...svCapNhat 
+                    ...this.danhSach[index], // Sao chép thuộc tính cũ
+                    ...svCapNhat // Ghi đè thuộc tính mới
                 };
 
                 this.danhSach = newDanhSach;
